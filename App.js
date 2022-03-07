@@ -1,14 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up the App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import SignUp from './src/screens/auth/signup/SignUp';
+import Home from './src/screens/auth/signup/Home';
+
+const Stack = createStackNavigator();
 
 const styles = StyleSheet.create({
   container: {
@@ -18,3 +19,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+class App extends React.Component {
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+        <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+          />
+        <Stack.Screen
+            name="Home"
+            component={Home}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+}
+
+
+
+export default App;
