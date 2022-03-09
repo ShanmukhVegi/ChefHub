@@ -1,9 +1,15 @@
 import React from 'react';
+<<<<<<< HEAD
+import { StyleSheet, Text, View, Button } from 'react-native';
+import styles from './styles';
+=======
 import { Text, View, TextInput,Button, ScrollView } from 'react-native';
 
 import styles from '../Styles';
+>>>>>>> 1c4b789a76bb714d90f924afb200db5daacfa500
 
 class SignUp extends React.Component {
+<<<<<<< HEAD
 	goLogin(){
 		this.props.navigation.navigate("Login");
 	}
@@ -21,6 +27,34 @@ class SignUp extends React.Component {
 				<View style = {styles.detailsContainer}>
 					<Text style={styles.inputText}>Name</Text>
 					<TextInput style = { styles.input } placeholder = "Enter Name"></TextInput>
+=======
+  render() {
+    return (
+<<<<<<< HEAD
+      <View style={styles.container}>
+        <Text>You have come to signup.</Text>
+
+        <Button
+          title="Go Home ra pilla bach"
+          onPress={() =>
+            this.props.navigation.navigate('Home')
+          }
+        />
+      </View>
+=======
+      <View style = {styles.container} >
+		  <ScrollView >
+			<Text style={ [styles.fontSize20, styles.marginBottom]} >Sign Up</Text>
+			<View style = { styles.socialLoginContainer }>
+				<View style={ styles.socialLogin }>
+				</View>
+				<View style={ styles.socialLogin }>
+				</View>
+			</View>
+			<View style = {styles.detailsContainer}>
+				<Text style={styles.inputText}>Name</Text>
+				<TextInput style = { styles.input } placeholder = "Enter Name"></TextInput>
+>>>>>>> origin/feature/shanmukh
 
 					<Text style={styles.inputText}>Mobile Number</Text>
 					<TextInput style = { styles.input } placeholder = "Enter Email"></TextInput>
@@ -64,8 +98,17 @@ class SignUp extends React.Component {
 				<Text onTouchStart={()=>this.goLogin()} style={{marginTop : 10, fontWeight : "500", fontSize : 16, marginBottom:7}}>Already have an account ? Login</Text>
 			</View>
 			</View>
+<<<<<<< HEAD
 		);
 	}
+=======
+			<Text style={{marginTop : 10, fontWeight : "500", fontSize : 16}}>Already have an account ? Login</Text>
+		</View>
+		</View>
+>>>>>>> 1c4b789a76bb714d90f924afb200db5daacfa500
+    );
+  }
+>>>>>>> origin/feature/shanmukh
 }
 
 export default SignUp;
