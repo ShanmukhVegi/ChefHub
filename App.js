@@ -11,34 +11,26 @@ import Home from './src/screens/auth/signup/Home';
 
 const Stack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 class App extends React.Component {
+
+
   render() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
         <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-          />
-        <Stack.Screen
             name="Home"
             component={Home}
+          />
+        <Stack.Screen
+            name="SignUp"
+            component={SignUp}
           />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
-
 
 export default App;

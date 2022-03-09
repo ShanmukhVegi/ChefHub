@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import styles from './styles';
 
 class SignUp extends React.Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>You have come to signup.</Text>
 
         <Button
