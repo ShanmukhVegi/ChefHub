@@ -8,7 +8,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './src/screens/auth/login/Login';
 import SignUp from './src/screens/auth/signup/SignUp';
-import Home from './src/screens/auth/signup/Home';
 
 const Stack = createStackNavigator();
 
@@ -27,19 +26,19 @@ class App extends React.Component {
       <NavigationContainer>
         <Stack.Navigator>
         <Stack.Screen
-            name="SignUp"
+            name="Login"
+            options={{ headerShown: false }}
             component={Login}
           />
         <Stack.Screen
-            name="Home"
-            component={Home}
+            name="SignUp"
+            options={{ headerShown: true }}
+            component={SignUp}
           />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
-
 
 export default App;

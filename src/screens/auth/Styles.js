@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 	container : {
 		padding : 30,
 		display : 'flex',
-		justifyContent : 'space-around',
+		justifyContent : 'center',
 		flex : 1,
 	},
 	centerItems : {
@@ -28,12 +28,16 @@ const styles = StyleSheet.create({
 		justifyContent : 'center',
 		alignItems : 'center'
 	},
+	fontSize30 : {
+		fontSize : 30,
+		fontWeight : "500",
+	},
 	fontSize20 : {
-		fontSize : 25,
+		fontSize : 20,
 		fontWeight : "500",
 	},
 	marginBottom : {
-		marginBottom : 30,
+		marginBottom : 20,
 	},
 	socialLoginContainer : {
 		display : 'flex',
