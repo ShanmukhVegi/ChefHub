@@ -5,11 +5,25 @@ import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-import { BoxShadow, BorderShadow } from 'expo-react-native-shadow'
 
 import NavigationBar from '../../components/user/NavigationBar';
 
 class Home extends React.Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            search : '',
+            currentFilter : 'All'
+        }
+    }
+
+    setFilterState = () =>{
+        console.log("Here");
+    }
+
+
     render() {
         return (
             <SafeAreaView style={{flex : 1}}>
@@ -44,35 +58,45 @@ class Home extends React.Component {
                     {/* Filter Section */}
 
                     <View style= {[{marginTop : 10,padding : 20 },styles.rowFlex]}>
-                        <Text style={[styles.filterText,styles.filterHighLight]}>All</Text>
-                        <Text style={[styles.filterText]}>Near By</Text>
-                        <Text style={[styles.filterText]}>Popular</Text>
-                        <Text style={[styles.filterText]}>Low Price</Text>
+                        
+                        <View style={ this.state.currentFilter=='All' ?  styles.filterHighLight : {}}>
+                            <Text onPress={this.setFilterState('all')} style={[styles.filterText,this.state.currentFilter=='All' ?  {color : '#24a0ed'} : {} ]}>All</Text>
+                        </View>
+
+                        <View  onPress={this.setFilterState()} style={ this.state.currentFilter=='nearby' ?  styles.filterHighLight : {}}>
+                            <Text style={[styles.filterText,this.state.currentFilter=='nearby' ?  {color : '#24a0ed'} : {} ]}>Near By</Text>
+                        </View>
+
+                        <View style={ this.state.currentFilter=='popular' ?  styles.filterHighLight : {}}>
+                            <Text onPress={this.setFilterState('popular')} style={[styles.filterText,this.state.currentFilter=='popular' ?  {color : '#24a0ed'} : {} ]}>Popular</Text>
+                        </View>
+
+                        <View style={ this.state.currentFilter=='lowprice' ?  styles.filterHighLight : {}}>
+                            <Text onPress={this.setFilterState('lowprice')} style={[styles.filterText,this.state.currentFilter=='lowprice' ?  {color : '#24a0ed'} : {} ]}>Low Price</Text>
+                        </View>
                     </View>
 
                     {/* List of Chefs */}
                     <ScrollView >
                         <View style ={styles.chefContainer}>
 
-                            <BoxShadow style={styles.shadowStyle}>
-                                <View style ={ styles.chefDetailsContainer}>
-                                    <View style = {[styles.rowFlex]}>
-                                        <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
-                                    </View>
-                                        <View style={[styles.rowFlex,{width : "100%"}]}>
-                                            <View>
-                                                <Text style = { styles.chefName }>Gadwal Bidda</Text>
-                                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                                    <FontAwesome name="star" size={16} color="#fff600" />
-                                                    <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
-                                                </View>
-                                            </View>
-                                            <View style={{marginRight : "5%",marginTop : "5%"}}>
-                                                <AntDesign name="arrowright" size={20} color="#24a0ed"/>
-                                            </View>
-                                    </View>
+                            <View style ={ styles.chefDetailsContainer}>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                 </View>
-                            </BoxShadow>
+                                    <View style={[styles.rowFlex,{width : "100%"}]}>
+                                        <View>
+                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                        </View>
+                                </View>
+                            </View>
                             
                             <View style ={ styles.chefDetailsContainer}>
                                 <View style = {[styles.rowFlex]}>
@@ -202,11 +226,15 @@ const styles = StyleSheet.create({
         color : '#969696',
         fontWeight : "600",
         textAlign : 'center',
-        padding : 2,
-        flex : 0.3
+        paddingTop:6,
+        paddingBottom:6,
+        paddingRight:15,
+        paddingLeft:15
     },
     filterHighLight : {
-        color : "#24a0ed"
+        color : "#24a0ed",
+        borderRadius : 16,
+        backgroundColor : '#b2ebf2'
     },
     chefContainer : {
         paddingLeft : 10,
@@ -231,16 +259,7 @@ const styles = StyleSheet.create({
         fontSize : 14,
         marginTop : 6,
         width : "100%"
-    },
-    shadowStyle : {
-        color: "#000",
-        border: 2,
-        radius: 3,
-        opacity: 0.2,
-        x: 0,
-        y: 3,
-        style: { marginVertical: 5 }
-      }
+    }
 })
 
 module.exports = Home;
