@@ -3,12 +3,17 @@ import { Text, View,SafeAreaView, TextInput,Button, Image, ScrollView, StyleShee
 
 import { Feather } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+
+import { BoxShadow, BorderShadow } from 'expo-react-native-shadow'
+
+import NavigationBar from '../../components/user/NavigationBar';
 
 class Home extends React.Component {
     render() {
         return (
-            <SafeAreaView >
-                <View style = {{padding: 30} }>
+            <SafeAreaView style={{flex : 1}}>
+                <View style = {{flex : 9,padding: 30} }>
                     <View style= {styles.rowFlex} >
                         <View style={styles.rowFlex}>
                             <View> 
@@ -38,111 +43,131 @@ class Home extends React.Component {
 
                     {/* Filter Section */}
 
-                    <View style= {[{marginTop : 20,padding : 20 },styles.rowFlex]}>
-                        <Text style={styles.filterText}>All</Text>
-                        <Text style={styles.filterText}>Near By</Text>
-                        <Text style={styles.filterText}>Popular</Text>
-                        <Text style={styles.filterText}>Low Price</Text>
+                    <View style= {[{marginTop : 10,padding : 20 },styles.rowFlex]}>
+                        <Text style={[styles.filterText,styles.filterHighLight]}>All</Text>
+                        <Text style={[styles.filterText]}>Near By</Text>
+                        <Text style={[styles.filterText]}>Popular</Text>
+                        <Text style={[styles.filterText]}>Low Price</Text>
                     </View>
 
                     {/* List of Chefs */}
-                    <ScrollView>
+                    <ScrollView >
                         <View style ={styles.chefContainer}>
-                            <View style ={ styles.chefDetailsContainer}>
-                                <View style = {styles.rowFlex}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")} style={{width : 120,height : 140,borderRadius : 10}}/>
-                                </View>
-                                <Text style = { styles.chefName }>Gadwal Bidda</Text>
-                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
-                                </View>
 
-                            </View>
+                            <BoxShadow style={styles.shadowStyle}>
+                                <View style ={ styles.chefDetailsContainer}>
+                                    <View style = {[styles.rowFlex]}>
+                                        <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
+                                    </View>
+                                        <View style={[styles.rowFlex,{width : "100%"}]}>
+                                            <View>
+                                                <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                    <FontAwesome name="star" size={16} color="#fff600" />
+                                                    <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                                </View>
+                                            </View>
+                                            <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                                <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                            </View>
+                                    </View>
+                                </View>
+                            </BoxShadow>
                             
                             <View style ={ styles.chefDetailsContainer}>
-                                <View style = {styles.rowFlex}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/girl1.webp")} style={{width : 120,height : 140,borderRadius : 10}}/>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {require("../../../assets/images/demoChefIcons/girl1.webp")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                 </View>
-                                <Text style = { styles.chefName }>Pooja Hackde</Text>
-                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
+                                    <View style={[styles.rowFlex,{width : "100%"}]}>
+                                        <View>
+                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                        </View>
                                 </View>
-
                             </View>
 
                             <View style ={ styles.chefDetailsContainer}>
-                                <View style = {styles.rowFlex}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/girl2.jpg")} style={{width : 120,height : 140,borderRadius : 10}}/>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {require("../../../assets/images/demoChefIcons/girl2.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                 </View>
-                                <Text style = { styles.chefName }>Samantha</Text>
-                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
+                                    <View style={[styles.rowFlex,{width : "100%"}]}>
+                                        <View>
+                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                        </View>
                                 </View>
-
                             </View>
 
                             <View style ={ styles.chefDetailsContainer}>
-                                <View style = {styles.rowFlex}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")} style={{width : 120,height : 140,borderRadius : 10}}/>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {require("../../../assets/images/demoChefIcons/boy1.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                 </View>
-                                <Text style = { styles.chefName }>Testing</Text>
-                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
+                                    <View style={[styles.rowFlex,{width : "100%"}]}>
+                                        <View>
+                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                        </View>
                                 </View>
-
                             </View>
 
                             <View style ={ styles.chefDetailsContainer}>
-                                <View style = {styles.rowFlex}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/boy1.jpg")} style={{width : 120,height : 140,borderRadius : 10}}/>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {require("../../../assets/images/demoChefIcons/boy2.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                 </View>
-                                <Text style = { styles.chefName }>Gadwal Bidda</Text>
-                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
+                                    <View style={[styles.rowFlex,{width : "100%"}]}>
+                                        <View>
+                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                        </View>
                                 </View>
-
                             </View>
 
                             <View style ={ styles.chefDetailsContainer}>
-                                <View style = {styles.rowFlex}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")} style={{width : 120,height : 140,borderRadius : 10}}/>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {require("../../../assets/images/demoChefIcons/uncle.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                 </View>
-                                <Text style = { styles.chefName }>Gadwal Bidda</Text>
-                                <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="star" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
-                                    <AntDesign name="staro" size={14} color="#76ff03" />
+                                    <View style={[styles.rowFlex,{width : "100%"}]}>
+                                        <View>
+                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
+                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                        </View>
                                 </View>
-
                             </View>
+                            
                         </View>
-
                     </ScrollView>
-
                 </View>
-
+                <NavigationBar sytle={{flex : 1}}></NavigationBar>
             </SafeAreaView>
         )
     }
@@ -174,10 +199,18 @@ const styles = StyleSheet.create({
         flex : 1
     },
     filterText : {
-        color : '#66defa',
-        fontWeight : "600"
+        color : '#969696',
+        fontWeight : "600",
+        textAlign : 'center',
+        padding : 2,
+        flex : 0.3
+    },
+    filterHighLight : {
+        color : "#24a0ed"
     },
     chefContainer : {
+        paddingLeft : 10,
+        paddingRight : 10,
         display : "flex",
         flexDirection : "row",
         flexWrap : "wrap",
@@ -185,10 +218,10 @@ const styles = StyleSheet.create({
         flex : 1,
     },
     chefDetailsContainer : {
-        width : "45%",
+        width : "48%",
         borderRadius : 6,
-        padding : 10,
-        height : 200,
+        padding : 5,
+        height : 170,
         flexWrap : "wrap",
         backgroundColor : "white",
         marginBottom : 10
@@ -198,7 +231,16 @@ const styles = StyleSheet.create({
         fontSize : 14,
         marginTop : 6,
         width : "100%"
-    }
+    },
+    shadowStyle : {
+        color: "#000",
+        border: 2,
+        radius: 3,
+        opacity: 0.2,
+        x: 0,
+        y: 3,
+        style: { marginVertical: 5 }
+      }
 })
 
 module.exports = Home;
