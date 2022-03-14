@@ -88,6 +88,10 @@ const styles = StyleSheet.create({
 		borderRadius : 10,
 		flex : 0.4,
 		marginTop : 10
+	},
+	validationError : {
+		color : 'red',
+		fontSize : 12
 	}
 });
 

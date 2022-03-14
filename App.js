@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './src/screens/auth/login/Login';
 import SignUp from './src/screens/auth/signup/SignUp';
+import Home from './src/screens/user/Home';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
+        <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
         <Stack.Screen
             name="Login"
             options={{ headerShown: false }}
