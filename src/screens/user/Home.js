@@ -15,12 +15,36 @@ class Home extends React.Component {
 
         this.state = {
             search : '',
-            currentFilter : 'All'
+            currentFilter : 'all',
+            data : [{
+                name : "Hrithik",
+                image : "../../../assets/images/demoChefIcons/kid.jpg",
+                rating : "4.5"
+            },
+            {
+                name : "Shanmukh",
+                image: "../../../assets/images/demoChefIcons/girl2.jpg",
+                rating : "4.0"
+            },
+            {
+                name : "Akshay",
+                image : "../../../assets/images/demoChefIcons/uncle.jpg",
+                rating : "4.5"
+            },
+            {
+                name : "Tiger",
+                image : "../../../assets/images/demoChefIcons/boy1.jpg",
+                rating : "3.2"
+            }
+        ],
         }
     }
 
-    setFilterState = () =>{
-        console.log("Here");
+
+    setFilterState(filter){
+        this.setState({
+            currentFilter : filter
+        })
     }
 
 
@@ -59,20 +83,20 @@ class Home extends React.Component {
 
                     <View style= {[{marginTop : 10,padding : 20 },styles.rowFlex]}>
                         
-                        <View style={ this.state.currentFilter=='All' ?  styles.filterHighLight : {}}>
-                            <Text onPress={this.setFilterState('all')} style={[styles.filterText,this.state.currentFilter=='All' ?  {color : '#24a0ed'} : {} ]}>All</Text>
+                        <View style={ this.state.currentFilter=='all' ?  styles.filterHighLight : {}}>
+                            <Text onPress={ ()=> this.setFilterState('all') } style={[styles.filterText,this.state.currentFilter=='all' ?  {color : '#24a0ed'} : {} ]}>All</Text>
                         </View>
 
-                        <View  onPress={this.setFilterState()} style={ this.state.currentFilter=='nearby' ?  styles.filterHighLight : {}}>
-                            <Text style={[styles.filterText,this.state.currentFilter=='nearby' ?  {color : '#24a0ed'} : {} ]}>Near By</Text>
+                        <View   style={ this.state.currentFilter=='nearby' ?  styles.filterHighLight : {}}>
+                            <Text onPress={ () => this.setFilterState('nearby') } style={[styles.filterText,this.state.currentFilter=='nearby' ?  {color : '#24a0ed'} : {} ]}>Near By</Text>
                         </View>
 
                         <View style={ this.state.currentFilter=='popular' ?  styles.filterHighLight : {}}>
-                            <Text onPress={this.setFilterState('popular')} style={[styles.filterText,this.state.currentFilter=='popular' ?  {color : '#24a0ed'} : {} ]}>Popular</Text>
+                            <Text onPress={ () => this.setFilterState('popular') } style={[styles.filterText,this.state.currentFilter=='popular' ?  {color : '#24a0ed'} : {} ]}>Popular</Text>
                         </View>
 
                         <View style={ this.state.currentFilter=='lowprice' ?  styles.filterHighLight : {}}>
-                            <Text onPress={this.setFilterState('lowprice')} style={[styles.filterText,this.state.currentFilter=='lowprice' ?  {color : '#24a0ed'} : {} ]}>Low Price</Text>
+                            <Text onPress={ () => this.setFilterState('lowprice') } style={[styles.filterText,this.state.currentFilter=='lowprice' ?  {color : '#24a0ed'} : {} ]}>Low Price</Text>
                         </View>
                     </View>
 
@@ -80,23 +104,29 @@ class Home extends React.Component {
                     <ScrollView >
                         <View style ={styles.chefContainer}>
 
-                            <View style ={ styles.chefDetailsContainer}>
-                                <View style = {[styles.rowFlex]}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
-                                </View>
-                                    <View style={[styles.rowFlex,{width : "100%"}]}>
-                                        <View>
-                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
-                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                                <FontAwesome name="star" size={16} color="#fff600" />
-                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
+                            {
+                                this.state.data.map((item,index) =>{
+                                    return (
+                                        <View style ={ styles.chefDetailsContainer}>
+                                            <View style = {[styles.rowFlex]}>
+                                                <Image source= {require("../../../assets/images/demoChefIcons/kid.jpg") }  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
+                                            </View>
+                                                <View style={[styles.rowFlex,{width : "100%"}]}>
+                                                    <View>
+                                                        <Text style = { styles.chefName }> { item.name } </Text>
+                                                        <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                            <FontAwesome name="star" size={16} color="#fff600" />
+                                                            <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>{item.rating} </Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                                        <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                                    </View>
                                             </View>
                                         </View>
-                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
-                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
-                                        </View>
-                                </View>
-                            </View>
+                                    );
+                                })
+                            }
                             
                             <View style ={ styles.chefDetailsContainer}>
                                 <View style = {[styles.rowFlex]}>
@@ -249,7 +279,6 @@ const styles = StyleSheet.create({
         width : "48%",
         borderRadius : 6,
         padding : 5,
-        height : 170,
         flexWrap : "wrap",
         backgroundColor : "white",
         marginBottom : 10
