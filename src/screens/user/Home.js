@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View,SafeAreaView, TextInput,Button, Image, ScrollView, StyleSheet } from 'react-native';
+import { Text, View,SafeAreaView, TextInput,Button, Image, ScrollView, StyleSheet, Content, FlatList,ActivityIndicator } from 'react-native';
+
 
 import { Feather } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons';
@@ -13,42 +14,127 @@ class Home extends React.Component {
     constructor(props){
         super(props);
 
+        
+
+        this.idval=13;
+
         this.state = {
+            isLoading : false,
             search : '',
             currentFilter : 'all',
             data : [{
-                name : "Hrithik",
-                image : require("../../../assets/images/demoChefIcons/kid.jpg"),
-                rating : "4.5"
+                name : "Phineas",
+                image : "https://upload.wikimedia.org/wikipedia/en/5/52/Phineas_Flynn.png",
+                rating : "4.5",
+                id : 1
             },
             {
-                name : "Shanmukh",
-                image: require("../../../assets/images/demoChefIcons/girl2.jpg"),
-                rating : "4.0"
+                name : "Doraemon",
+                image: "https://static.wikia.nocookie.net/fictionalcrossover/images/6/62/Doraemon_2005.jpg/revision/latest/scale-to-width-down/1000?cb=20151107162648",
+                rating : "4.0",
+                id : 2
             },
             {
-                name : "Akshay",
-                image : require("../../../assets/images/demoChefIcons/uncle.jpg"),
-                rating : "4.5"
+                name : "Shinchan",
+                image : "https://st1.bollywoodlife.com/wp-content/uploads/2020/09/FotoJet382.jpg",
+                rating : "4.5",
+                id : 3
             },
             {
-                name : "Tiger",
-                image : require("../../../assets/images/demoChefIcons/boy1.jpg"),
-                rating : "3.2"
-            }
+                name : "Mr.Bean",
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgJo8C8TDJF9gt-5UJzfmuAaB_215yo3mpIQ&usqp=CAU",
+                rating : "3.2",
+                id : 4
+            },
+            {
+                name : "Jerry",
+                image : "https://i.pinimg.com/originals/fa/f7/b6/faf7b6bd1784990bcaec6f2eed5d012b.jpg",
+                rating : "4.63",
+                id : 5
+            },
+            {
+                name : "Motu Bhai",
+                image : "https://m.media-amazon.com/images/M/MV5BODY4Y2UyODUtYjkzNC00NmZlLWEzNWYtMTAxYmIzNGVlYmVkXkEyXkFqcGdeQXVyODAzNzAwOTU@._V1_FMjpg_UX1000_.jpg",
+                rating : "5.0",
+                id : 6
+            },
+
+
+            {
+                name : "Phineas",
+                image : "https://upload.wikimedia.org/wikipedia/en/5/52/Phineas_Flynn.png",
+                rating : "4.5",
+                id : 7
+            },
+            {
+                name : "Doraemon",
+                image: "https://static.wikia.nocookie.net/fictionalcrossover/images/6/62/Doraemon_2005.jpg/revision/latest/scale-to-width-down/1000?cb=20151107162648",
+                rating : "4.0",
+                id : 8
+            },
+            {
+                name : "Shinchan",
+                image : "https://st1.bollywoodlife.com/wp-content/uploads/2020/09/FotoJet382.jpg",
+                rating : "4.5",
+                id : 9
+            },
+            {
+                name : "Mr.Bean",
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgJo8C8TDJF9gt-5UJzfmuAaB_215yo3mpIQ&usqp=CAU",
+                rating : "3.2",
+                id : 10
+            },
+            {
+                name : "Jerry",
+                image : "https://i.pinimg.com/originals/fa/f7/b6/faf7b6bd1784990bcaec6f2eed5d012b.jpg",
+                rating : "4.63",
+                id : 11
+            },
+            {
+                name : "Motu Bhai",
+                image : "https://m.media-amazon.com/images/M/MV5BODY4Y2UyODUtYjkzNC00NmZlLWEzNWYtMTAxYmIzNGVlYmVkXkEyXkFqcGdeQXVyODAzNzAwOTU@._V1_FMjpg_UX1000_.jpg",
+                rating : "5.0",
+                id : 12
+            },
+
+
+
         ],
         }
     }
-
-
-    setFilterState(filter){
-        this.setState({
-            currentFilter : filter
-        })
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
 
+    loadData = async () => {
+        if (this.state.isLoading == true) {
+            /// Avoid make another request is there's happening a request right now
+            return
+        }
+        this.setState({isLoading:true });
+        console.log("######## THE END  0000000")
+        await this.sleep(5000);
+        for (var i=0;i<6;i++) {
+            this.state.data.push({
+                name : "Motu Bhai",
+                image : "https://m.media-amazon.com/images/M/MV5BODY4Y2UyODUtYjkzNC00NmZlLWEzNWYtMTAxYmIzNGVlYmVkXkEyXkFqcGdeQXVyODAzNzAwOTU@._V1_FMjpg_UX1000_.jpg",
+                rating : "5.0",
+                id : this.idval
+            })
+            this.idval+=1
+        }
+        console.log("END COMPLETED")
+        this.setState({isLoading:false });
+    }
+    Render_Footer=()=>{
+        return (
+          <ActivityIndicator size="large" color="#b2ebf2" />
+        )        
+      }
+
     render() {
+
         return (
             <SafeAreaView style={{flex : 1}}>
                 <View style = {{flex : 9,padding: 30} }>
@@ -58,8 +144,8 @@ class Home extends React.Component {
                                 {/* User Icon Here */}
                             </View>
                             <View>
-                                <Text style={{ color : '#969696' ,fontWeight : "600"}}>Welcome 👋</Text>
-                                <Text style={{ fontSize : 16, marginTop : 3,fontWeight : "600"}}> Hrithik Manda</Text>
+                                <Text style={{ color : '#969696' ,fontWeight : "600"}}> Welcome 👋</Text>
+                                <Text style={{ fontSize : 16, marginTop : 3,fontWeight : "600"}}> Shanmukh Vegi</Text>
                             </View>
                         </View>
                         <View style = { [styles.rowFlex,{justifyContent: 'space-around'},styles.notification] }>
@@ -69,7 +155,8 @@ class Home extends React.Component {
 
                     {/*Heading container */}
                     <View style= {{marginTop : 30}}>
-                        <Text style = {{ paddingRight : 40, fontSize : 30 ,fontWeight : "600"}}> Find a Good Chef, Stay Healthy </Text>
+                        <Text style = {{ paddingRight : 40, fontSize : 30 ,fontWeight : "600"}}> Find a Good Chef,</Text>
+                        <Text style = {{ paddingRight : 40, fontSize : 30 ,fontWeight : "600"}}> Stay Healthy </Text>
                     </View>
 
                     {/*Search container */}
@@ -100,23 +187,53 @@ class Home extends React.Component {
                         </View>
                     </View>
 
+                    <FlatList
+                        data={this.state.data}
+                        renderItem={({ item }) => 
+                            <View style ={ styles.chefDetailsContainer }>
+                                <View style = {[styles.rowFlex]}>
+                                    <Image source= {{uri : item.image }}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
+                                </View>
+                                <View style={[styles.rowFlex,{width : "100%"}]}>
+                                    <View>
+                                        <Text style = { styles.chefName }> { item.name } </Text>
+                                        <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                            <FontAwesome name="star" size={16} color="#fff600" />
+                                            <Text style={ styles.chefRating }>{item.rating} </Text>
+                                        </View>
+                                    </View>
+                                    <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                        <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                    </View>
+                                </View>
+                            </View>
+                        }
+                        keyExtractor = {(item)=> item.id}
+                        numColumns={2}
+                        onEndReachedThreshold={0.0}
+                        onEndReached={()=>this.loadData().catch(function(){}) }
+                        ListFooterComponent = { this.Render_Footer }
+                        
+                        
+                    />
+
                     {/* List of Chefs */}
-                    <ScrollView >
-                        <View style ={styles.chefContainer}>
+                    {/*<FlatList>
+                        <View style ={styles.chefContainer} onEndReachedThreshold={10} onEndReached={() => { this.handleScroll() }}>
 
                             {
                                 this.state.data.map((item,index) =>{
                                     return (
                                         <View style ={ styles.chefDetailsContainer}>
                                             <View style = {[styles.rowFlex]}>
-                                                <Image source= { item.image }  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
+                                                <Image source= {{uri : item.image }}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
                                             </View>
                                                 <View style={[styles.rowFlex,{width : "100%"}]}>
                                                     <View>
                                                         <Text style = { styles.chefName }> { item.name } </Text>
                                                         <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
                                                             <FontAwesome name="star" size={16} color="#fff600" />
-                                                            <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>{item.rating} </Text>
+                                                            <Text style={ styles.chefRating }>{item.rating} </Text>
                                                         </View>
                                                     </View>
                                                     <View style={{marginRight : "5%",marginTop : "5%"}}>
@@ -128,26 +245,8 @@ class Home extends React.Component {
                                 })
                             }
                             
-                            {/* <View style ={ styles.chefDetailsContainer}>
-                                <View style = {[styles.rowFlex]}>
-                                    <Image source= {require("../../../assets/images/demoChefIcons/girl1.webp")}  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
-                                </View>
-                                    <View style={[styles.rowFlex,{width : "100%"}]}>
-                                        <View>
-                                            <Text style = { styles.chefName }>Gadwal Bidda</Text>
-                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                                <FontAwesome name="star" size={16} color="#fff600" />
-                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>4.5</Text>
-                                            </View>
-                                        </View>
-                                        <View style={{marginRight : "5%",marginTop : "5%"}}>
-                                            <AntDesign name="arrowright" size={20} color="#24a0ed"/>
-                                        </View>
-                                </View>
-                            </View> */}
-                            
                         </View>
-                    </ScrollView>
+                        </FlatList>*/}
                 </View>
                 <NavigationBar sytle={{flex : 1}}></NavigationBar>
             </SafeAreaView>
@@ -201,7 +300,7 @@ const styles = StyleSheet.create({
         flexDirection : "row",
         flexWrap : "wrap",
         justifyContent : "space-between",
-        flex : 1,
+        flex : 1
     },
     chefDetailsContainer : {
         width : "48%",
@@ -209,13 +308,20 @@ const styles = StyleSheet.create({
         padding : 5,
         flexWrap : "wrap",
         backgroundColor : "white",
-        marginBottom : 10
+        marginBottom : "5%",
+        marginRight : "5%"
     },
     chefName : {
         fontWeight : "600",
         fontSize : 14,
         marginTop : 6,
         width : "100%"
+    },
+    chefRating : {
+        marginLeft : 5,
+        fontWeight:"600",
+        fontSize: 14,
+        paddingBottom : 5
     }
 })
 
