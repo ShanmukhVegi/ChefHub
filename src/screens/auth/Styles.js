@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 	},
 
 	container : {
-		padding : 30,
+		padding : 20,
 		display : 'flex',
 		justifyContent : 'center',
 		flex : 1,
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 		fontWeight : "700",
 		borderRadius : 10,
 		backgroundColor : '#e0e0e0',
+		borderWidth : 1
 	},
 	button : {
 		fontWeight : '800',
@@ -87,9 +88,14 @@ const styles = StyleSheet.create({
 		backgroundColor : '#e0e0e0',
 		borderRadius : 10,
 		flex : 0.4,
-		marginTop : 10
+		marginTop : 10,
+		alignItems: 'center',
+		borderWidth : 1,
+		borderColor : '#e0e0e0'
 	},
-	validationError : {
+	validation : {
+		paddingLeft : 6,
+		marginTop : -5,
 		color : 'red',
 		fontSize : 12
 	}

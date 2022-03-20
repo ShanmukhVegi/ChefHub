@@ -7,6 +7,9 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 import NavigationBar from '../../components/user/NavigationBar';
+import TouchableScale from 'react-native-touchable-scale';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SharedElement } from 'react-navigation-shared-element';
 
 class Home extends React.Component {
 
@@ -19,22 +22,26 @@ class Home extends React.Component {
             data : [{
                 name : "Hrithik",
                 image : require("../../../assets/images/demoChefIcons/kid.jpg"),
-                rating : "4.5"
+                rating : "4.5",
+                mobile : "1234567890"
             },
             {
                 name : "Shanmukh",
                 image: require("../../../assets/images/demoChefIcons/girl2.jpg"),
-                rating : "4.0"
+                rating : "4.0",
+                mobile : "1234167890"
             },
             {
                 name : "Akshay",
                 image : require("../../../assets/images/demoChefIcons/uncle.jpg"),
-                rating : "4.5"
+                rating : "4.5",
+                mobile : "2334167890"
             },
             {
                 name : "Tiger",
                 image : require("../../../assets/images/demoChefIcons/boy1.jpg"),
-                rating : "3.2"
+                rating : "3.2",
+                mobile : "1234169890"
             }
         ],
         }
@@ -107,22 +114,38 @@ class Home extends React.Component {
                             {
                                 this.state.data.map((item,index) =>{
                                     return (
-                                        <View style ={ styles.chefDetailsContainer}>
-                                            <View style = {[styles.rowFlex]}>
-                                                <Image source= { item.image }  resizeMode={'stretch'}  style={{width : "100%",height : 120,borderRadius : 10}}/>
-                                            </View>
-                                                <View style={[styles.rowFlex,{width : "100%"}]}>
-                                                    <View>
-                                                        <Text style = { styles.chefName }> { item.name } </Text>
-                                                        <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
-                                                            <FontAwesome name="star" size={16} color="#fff600" />
-                                                            <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>{item.rating} </Text>
+                                            <View style ={ styles.chefDetailsContainer}>   
+                                            
+                                            <TouchableScale
+                                            activeOpacity={0.8}
+                                            style={{ width : "100%" }}
+                                            onPress={() => this.props.navigation.navigate('DetailScreen', { item})}>
+
+                                                <SharedElement id={`item.${item.mobile}.image`}>
+                                                    <View style = {[styles.rowFlex]}>
+                                                            <Image source= { item.image }  resizeMode={'stretch'}  style={{maxWidth : "100%",height : 120,borderRadius : 10}}/>
+                                                    </View>
+                                                </SharedElement>
+
+                                                <View style={[styles.rowFlex,{padding : "5%",width : "100%"}]}>
+                                                    
+                                                    <SharedElement id={`item.${item.mobile}.text`}>
+                                                        <View>
+                                                            <Text style = { styles.chefName }> { item.name } </Text>
+                                                            <View style ={{marginTop : 1,display : 'flex',flexDirection:'row',alignItems : 'center'}}>
+                                                                <FontAwesome name="star" size={16} color="#fff600" />
+                                                                <Text style={{marginLeft : 5,fontWeight:"600",fontSize: 14}}>{item.rating} </Text>
+                                                            </View>
                                                         </View>
-                                                    </View>
-                                                    <View style={{marginRight : "5%",marginTop : "5%"}}>
+                                                    </SharedElement>
+
+                                                    <View style={{marginTop : "5%"}}>
+                                                        <TouchableOpacity>
                                                         <AntDesign name="arrowright" size={20} color="#24a0ed"/>
+                                                        </TouchableOpacity>
                                                     </View>
-                                            </View>
+                                                </View>
+                                            </TouchableScale>
                                         </View>
                                     );
                                 })

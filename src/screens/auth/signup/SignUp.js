@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, TextInput,Button, ScrollView } from 'react-native';
-import { isValidElement } from 'react/cjs/react.production.min';
+import { Text, View, TextInput, ScrollView,TouchableHighlight } from 'react-native';
 
 import styles from '../Styles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 import patterns from '../../../constants/constants';
 
@@ -16,115 +17,200 @@ class SignUp extends React.Component {
 			mobile: '',
 			password : '',
 			confirmPassword : '',
-			country : '',
+			country : 'India',
 			state : '',
-			userType : '',
+			userType : 'User',
 			addressLine1 : '',
 			addressLine2 : '',
-			nameError : 'got this',
+			nameError : '',
 			mobileError: '',
 			passwordError: '',
-			confirmPasswordErorr : '',
+			confirmPasswordError : '',
 			countryError : '',
-			stateErorr : ''
-		};
+			stateError : '',
+			addressLine1Error : '',
+			addressLine2Error : ''
+ 		};
 	}
+
+	hasAnEmptyField = false;
 
 	goLogin(){
 		this.props.navigation.navigate("Login");
 	}
 
 	setNameState(state){
-		this.state.name = state.name;
 		const namePattern = patterns.name;
-		if(!namePattern.test(this.state.name)){
-			this.state.nameError = "Enter valid name";
+		if(!namePattern.test(state.name)){
+			this.setState({
+				nameError :'Please enter a valid name'
+			});
 		}
 		else{
-			this.state.nameError = '';
+			this.setState({
+				nameError : '',
+				name : state.name
+			});
 		}
 	}
 
-	setmobileState(state){
-		this.state.mobile = state.mobile;
-		const mobilePattern =  constants.mobile;
-		if(!mobilePattern.test(this.state.mobile)){
-			this.state.mobileError = 'Please enter a valid mobile';
+	setMobileState(state){
+		const mobilePattern =  patterns.mobile;
+		console.log(mobilePattern.test(state.mobile));
+		if(!mobilePattern.test(state.mobile)){
+			this.setState({
+				mobileError :'Please enter a valid mobile'
+			});
 		}
 		else{
-			this.state.mobileError = '';
+			this.setState({
+				mobileError :'',
+				mobile : state.mobile
+			});
 		}
 	}
 
 	setPasswordState(state){
-		this.state.password = state.password;
-		const passwordPattern = constants.password;
-		if(!passwrodPattern.test(this.state.password)){
-			this.state.passwordError = 'Password must contain atleast 8 characters including 1 digit';
+		const passwordPattern = patterns.password;
+		if(!passwordPattern.test(state.password)){
+			this.setState({
+				passwordError :'Password must contain atleast 6 characters'
+			});
 		}
 		else{
-			this.state.passwordError = '';
+			this.setState({
+				passwordError :'',
+				password : state.password
+			});;
 		}
 	}
 
 	setConfirmPasswordState(state){
-		this.state.confirmPassword = state.confirmPassword;
-		if(this.state.confirmPassword !== this.state.password){
-			this.state.confirmPasswordErorr = 'Password does not match';
+		if(state.confirmPassword !== this.state.password){
+			this.setState({
+				confirmPasswordError :'Password does not match'
+			});
 		}
 		else{
-			this.state.confirmPasswordErorr = '';
+			this.setState({
+			    confirmPasswordError :'',
+				confirmPassword : state.confirmPassword
+			});
 		}
 	}
 
-	setCountryState(state){
-		this.state.country = state.country;
-		const namePattern = constants.patterns.name;
-		if(!namePattern.test(this.state.country)){
-			this.state.countryError = "Enter valid name";
-		}
-		else{
-			this.state.countryError = '';
-		}
+	setUserType(type){
+		this.setState({
+			userType : type
+		})
 	}
+
+	// setCountryState(state){
+	// 	const namePattern = constants.patterns.name;
+	// 	if(!namePattern.test(state.country)){
+	// 		this.setState({
+	// 			countryError : "Enter valid state"
+	// 		});
+	// 	}
+	// 	else{
+	// 		this.setState({
+	// 			countryError : "",
+	// 			country : state.country
+	// 		});
+	// 	}
+	// }
 
 	setStateState(state){
-		this.state.state = state.state;
-		const namePattern = constants.patterns.name;
-		if(!namePattern.test(this.state.state)){
-			this.state.stateError = "Enter valid state";
+		const namePattern = patterns.name;
+		if(!namePattern.test(state.state)){
+			this.setState({
+				stateError : "Enter valid state"
+			});
 		}
 		else{
-			this.state.stateError = '';
+			this.setState({
+				stateError : "",
+				state : state.state
+			});
 		}
 	}
 
 	setAddressLine1State(state){
-	 	this.state.addressLine1 = state.addressLine1;
-		 const adPattern = constants.patterns.address;
-		 if(!adPattern.test(this.state.addressLine1)){
-			this.state.addressLine1Error = 'Enter valid address Line';
+		 const adPattern = patterns.address;
+		 if(!adPattern.test(state.addressLine1)){
+			this.setState({
+				addressLine1Error : 'Enter valid address Line'
+			});
 		 }
 		 else{
-			this.state.addressLine2Error = '';
+			this.setState({
+				addressLine1 : state.addressLine1,
+				addressLine1Error : ''
+			});
 		 }
 	}
 
 	setAddressLine2State(state){
-		this.state.addressLine2 = state.addressLine2;
-		const adPattern = constants.patterns.address;
-		 if(!adPattern.test(this.state.addressLine2)){
-			this.state.addressLine2Error = 'Enter valid address Line';
-		 }
-		 else{
-			this.state.addressLine2Error = '';
-		 }
+		const adPattern = patterns.address;
+		if(!adPattern.test(state.addressLine2)){
+			this.setState({
+				addressLine2Error : 'Enter valid address Line'
+			});
+		}
+		else{
+			this.setState({
+				addressLine2 : state.addressLine2,
+				addressLine2Error : ''
+			});
+		}
    }
 
+   	isFormValid(state){
+		// If any of the Error is active then return false
+		if(state.nameError.length>0 || state.mobileError.length>0 || state.passwordError.length>0  || state.confirmPasswordError.length>0
+		|| state.countryError.length>0 || state.stateError.length>0 || state.addressLine1Error.length>0 || state.addressLine2Error.length>0){
+			return false;
+		}
+		this.hasAnEmptyField = false;
+		if(this.state.name.length===0){
+			this.setState({nameError : 'Name is Required'});
+			this.hasAnEmptyField = true;
+		}
+		if(this.state.mobile.length===0){
+			this.setState({mobileError : 'Mobile is Required'});
+			this.hasAnEmptyField = true;
+		}
+		if(this.state.password.length===0){
+			this.setState({passwordError : 'Password is Required'});
+			this.hasAnEmptyField = true;
+		}
+		if(this.state.confirmPassword.length===0){
+			this.setState({confirmPasswordError : 'Confirm Password is Required'});
+			this.hasAnEmptyField = true;
+		}
+		if(this.state.state.length===0){
+			this.setState({stateError : 'State is Required'});
+			this.hasAnEmptyField = true;
+		}
+		if(this.state.addressLine1.length===0){
+			this.setState({addressLine1Error : 'Address Line 1 is Required'});
+			this.hasAnEmptyField = true;
+		}
+		if(this.state.addressLine2.length===0){
+			this.setState({addressLine2Error : 'Address Line 2 is Required'});
+			this.hasAnEmptyField = true;
+		}
+
+		if(this.hasAnEmptyField){
+			return false;
+		}
+
+		return true;
+	}
 
    	signUpUser(){	
-		if(isValidState(this.state)){
-			
+		if(this.isFormValid(this.state)){ 
+
 		}
 	}
 	
@@ -142,55 +228,69 @@ class SignUp extends React.Component {
 
 				<View style = {styles.detailsContainer}>
 					<Text style={styles.inputText}>Name</Text>
-					<TextInput onChangeText={value => this.setNameState({ name : value.trim()})} style = { styles.input } placeholder = "Enter Name"></TextInput>
-					
-					
-					<Text style = { styles.validation }> { this.state.nameError } </Text>
+					<TextInput onChangeText={value => this.setNameState({ name : value.trim()})} style = { [this.state.nameError.length>0? {borderColor : "red"} : {borderColor:"#e0e0e0"} ,styles.input]} placeholder = "Enter Name"></TextInput>
+					{ this.state.nameError.length>0 && <Text style = { styles.validation }> { this.state.nameError } </Text> }
 					
 
 					<Text style={styles.inputText}>Mobile Number</Text>
-					<TextInput  onChangeText={value => this.setMobileState({mobile: value.trim()})}  style = { styles.input } placeholder = "Enter mobile"></TextInput>
+					<TextInput  onChangeText={value => this.setMobileState({mobile: value.trim()})}  style = { [this.state.mobileError.length>0? {borderColor : "red"} : {borderColor:"#e0e0e0"} ,styles.input]} placeholder = "Enter mobile"></TextInput>
+					{ this.state.mobileError.length>0 && <Text style = { styles.validation }> { this.state.mobileError } </Text> }
 
 					<Text style={styles.inputText}>Password</Text>
-					<TextInput style = { styles.input } placeholder = "Enter Password" secureTextEntry={true}></TextInput>
+					<TextInput onChangeText={value => this.setPasswordState({ password : value.trim()})} style = { [this.state.passwordError.length>0? {borderColor : "red"} : {borderColor:"#e0e0e0"} ,styles.input]}placeholder = "Enter Password" secureTextEntry={true}></TextInput>
+					{ this.state.passwordError.length>0 && <Text style = { styles.validation }> { this.state.passwordError } </Text> }
 					
 					<Text style={styles.inputText}>Confirm Password</Text>
-					<TextInput style = { styles.input } placeholder = "Re-Enter Password" secureTextEntry={true}></TextInput>
-					
+					<TextInput onChangeText={value => this.setConfirmPasswordState({ confirmPassword : value.trim()})} style = { styles.input } placeholder = "Re-Enter Password" secureTextEntry={true}></TextInput>
+					{ this.state.confirmPasswordError.length>0 && <Text style = { styles.validation }> { this.state.confirmPasswordError } </Text> }					
 
 					<Text style={styles.inputText}>You are ? </Text>
 					<View style ={[styles.flex, styles.flexRow, styles.justifyContentAround]}>
 
-						<View style={styles.box}>
-						<Text style={{textAlign : 'center',padding : 15, fontSize : 17,fontWeight : "600"}}>Chef</Text>
-						</View>
+						<TouchableHighlight activeOpacity={0.6} underlayColor="#DDDDDD" onPress={()=>(this.setUserType('Chef'))}>
+							<View style={[styles.box,this.state.userType=='Chef' ? {borderWidth : 1,borderColor : "#24a0ed"} :{}]}>
+								<View style={{alignItems : 'center',padding:10}}>
+									<MaterialCommunityIcons name="chef-hat" size={24} color={this.state.userType=='Chef' ? '#24a0ed' : "black"} />
+									<Text style={[this.state.userType=='Chef' ? {color : "#24a0ed"} : {},{textAlign : 'center',paddingTop:4, fontSize : 16,fontWeight : "600"}]}>Chef</Text>
+								</View>
+							</View>
+						</TouchableHighlight>
 
-						<View style={styles.box}>
-							<Text style={{textAlign : 'center',padding : 15, fontSize : 17,fontWeight : "600"}}>User</Text>
-						</View>
-
+						<TouchableHighlight  activeOpacity={0.6} underlayColor="#DDDDDD" onPress={()=>(this.setUserType('User'))}>
+							<View style={[styles.box,this.state.userType=='User' ? {borderWidth : 1,borderColor : "#24a0ed"} :{}]}>
+								<View style={{alignItems : 'center',padding:10}}>
+								<FontAwesome5 name="user-alt" size={22} color={this.state.userType=='User' ? '#24a0ed' : "black"} />
+									<Text  style={[this.state.userType=='User' ? {color : "#24a0ed"} : {},{textAlign : 'center',paddingTop:4, fontSize : 16,fontWeight : "600"}]}>User</Text>
+								</View>
+							</View>
+						</TouchableHighlight>
 					</View>
-					
+
 					<Text style={styles.inputText}>Country</Text>
-					<TextInput style = { styles.input } placeholder = "Enter Address"></TextInput>
+					<TextInput editable={false} value={this.state.country} style = { styles.input } ></TextInput>
 					
 					<Text style={styles.inputText}>State</Text>
-					<TextInput style = { styles.input } placeholder = "Enter Address"></TextInput>
+					<TextInput onChangeText={value => this.setStateState({ state : value.trim()})} style = { styles.input } placeholder = "Enter State"></TextInput>
+					{ this.state.stateError.length>0 && <Text style = { styles.validation }> { this.state.stateError } </Text> }
 					
 					<Text style={styles.inputText}>Address Lane 1</Text>
-					<TextInput style = { styles.input } placeholder = "Enter Address"></TextInput>
+					<TextInput onChangeText={value => this.setAddressLine1State({ addressLine1 : value.trim()})} style = { styles.input } placeholder = "Enter Address Lane 1"></TextInput>
+					{ this.state.addressLine1Error.length>0 && <Text style = { styles.validation }> { this.state.addressLine1Error } </Text> }
 					
 					<Text style={styles.inputText}>Address Lane 2</Text>
-					<TextInput style = { styles.input } placeholder = "Enter Address"></TextInput>
+					<TextInput onChangeText={value => this.setAddressLine2State({ addressLine2 : value.trim()})} style = { styles.input } placeholder = "Enter Address Lane 2"></TextInput>
+					{ this.state.addressLine2Error.length>0 && <Text style = { styles.validation }> { this.state.addressLine2Error } </Text> }
 					
 				</View>
 			</ScrollView>
 
 			<View style = {[styles.centerItems, {marginTop : 20}]}>
-				<View onTouchStart={()=> this.signUpUser()}  style= {styles.button}>
-					<Text style = {{color : 'white', padding : 15,fontWeight : "600",fontSize : 20, textAlign : 'center'}}>Sign Up</Text>
-				</View>
-				<Text onTouchStart={()=>this.goLogin()} style={{marginTop : 10, fontWeight : "500", fontSize : 16, marginBottom:7}}>Already have an account ? Login</Text>
+				<TouchableHighlight  activeOpacity={0.6} underlayColor="#DDDDDD" onPress={()=>this.signUpUser()}>
+					<View style= {styles.button}>
+						<Text style = {{color : 'white', padding : 15,fontWeight : "600",fontSize : 20, textAlign : 'center'}}>Sign Up</Text>
+					</View>
+				</TouchableHighlight>
+				<Text onPress={()=>this.goLogin()} style={{marginTop : 10, fontWeight : "500", fontSize : 16, marginBottom:7}}>Already have an account ? Login</Text>
 			</View>
 			</View>
 		);
