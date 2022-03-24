@@ -57,7 +57,6 @@ class Home extends React.Component {
                 },
             ],
         };
-
         this.idVal = 10;
     }
 
@@ -81,7 +80,8 @@ class Home extends React.Component {
 
         await this.sleep(5000);
         data = [];
-        for (var i = 0; i < 6; i++) {
+
+        for (var i = 0; i < 5; i++) {
             data.push({
                 name: "Motu Bhai",
                 image: require("../../../assets/images/demoChefIcons/uncle.jpg"),
