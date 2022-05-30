@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
+    "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
     "accordion-collapse-react-native": "^1.1.0",
@@ -23,6 +24,7 @@
     "react-native": "0.64.3",
     "react-native-gesture-handler": "^2.1.0",
     "react-native-image-header-scroll-view": "^1.0.0",
+    "react-native-loading-spinner-overlay": "^3.0.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-shared-element": "^0.8.4",

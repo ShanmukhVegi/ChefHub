@@ -5,6 +5,7 @@ export const constants = {
   //Min 6 Length
   password: new RegExp(/^.{6,}$/),
   mobile: new RegExp(/^[0-9]{10}$/),
+  otp: new RegExp(/^[0-9]{6}$/),
   //Allows only alphabets
   name: new RegExp(/^[A-Za-z ]+$/),
 

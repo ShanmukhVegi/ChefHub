@@ -5,7 +5,7 @@ import {
   TextInput,
   ScrollView,
   TouchableHighlight,
-  Alert,
+  ActivityIndicator,
 } from "react-native";
 
 import styles from "../Styles";
@@ -14,7 +14,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import constants from "../../../constants/constants";
 import { callPostApi, callGetApi } from "../../../Helper";
-import { ThemeProvider } from "@react-navigation/native";
+import Spinner from "react-native-loading-spinner-overlay";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class SignUp extends React.Component {
       name: "",
       mobile: "",
       password: "",
+      otp: "",
       confirmPassword: "",
       country: "India",
       state: "",
@@ -32,15 +33,16 @@ class SignUp extends React.Component {
       addressLine2: "",
       nameError: "",
       mobileError: "",
+      otpError: "",
       passwordError: "",
       confirmPasswordError: "",
       countryError: "",
       stateError: "",
       addressLine1Error: "",
       addressLine2Error: "",
+      spinner: false,
+      otpRecieved: "",
     };
-
-    this.loading = false;
   }
 
   hasAnEmptyField = false;
@@ -63,12 +65,25 @@ class SignUp extends React.Component {
     }
   }
 
+  setOtpState(state) {
+    const otpPattern = constants.otp;
+    if (!otpPattern.test(state.otp)) {
+      this.setState({
+        otpError: "Please enter a valid OTP",
+      });
+    } else {
+      this.setState({
+        otpError: "",
+        otp: state.otp,
+      });
+    }
+  }
+
   setMobileState(state) {
     const mobilePattern = constants.mobile;
-    console.log(mobilePattern.test(state.mobile));
     if (!mobilePattern.test(state.mobile)) {
       this.setState({
-        mobileError: "Please enter a valid mobile",
+        mobileError: "Please enter a valid mobile number",
       });
     } else {
       this.setState({
@@ -178,7 +193,8 @@ class SignUp extends React.Component {
       state.countryError.length > 0 ||
       state.stateError.length > 0 ||
       state.addressLine1Error.length > 0 ||
-      state.addressLine2Error.length > 0
+      state.addressLine2Error.length > 0 ||
+      state.otpError.length > 0
     ) {
       return false;
     }
@@ -213,6 +229,10 @@ class SignUp extends React.Component {
       this.setState({ addressLine2Error: "Address Line 2 is Required" });
       this.hasAnEmptyField = true;
     }
+    if (this.state.otp.length == 0) {
+      this.setState({ otpError: "OTP is Required" });
+      this.hasAnEmptyField = true;
+    }
 
     if (this.hasAnEmptyField) {
       return false;
@@ -221,8 +241,50 @@ class SignUp extends React.Component {
     return true;
   }
 
+  async generateOtp() {
+    if (this.state.mobileError.length > 0) {
+      constants.showAlert("Mobile number error", this.state.mobileError);
+      return;
+    }
+    if (this.state.mobile.length == 0) {
+      constants.showAlert(
+        "Mobile number error",
+        "Please enter a valid mobile number"
+      );
+      return;
+    }
+    console.log("TAPPED");
+    var data = {
+      mobilenumber: this.state.mobile,
+    };
+    await callPostApi(constants.baseUrl, "generateOtp", data).then((result) => {
+      if (result == "FAILURE") {
+        this.setState({ spinner: !this.state.spinner });
+        constants.showAlert(
+          "Failure",
+          "There is some internal problem, please try again!"
+        );
+      } else {
+        if (result.success) {
+          this.setState({ spinner: !this.state.spinner });
+          constants.showAlert("Success", "OTP generated!");
+          this.state.otpRecieved = result.OTP;
+        } else {
+          this.setState({ spinner: !this.state.spinner });
+          constants.showAlert("Failure", result.message);
+        }
+      }
+    });
+    console.log(this.state.otpRecieved);
+  }
+
   async signUpUser() {
     if (this.isFormValid(this.state)) {
+      if (this.state.otp != this.state.otpRecieved) {
+        constants.showAlert("Otp Error", "Please enter the correct OTP");
+        return;
+      }
+      this.setState({ spinner: !this.state.spinner });
       var data = {
         name: this.state.name,
         mobilenumber: this.state.mobile,
@@ -234,21 +296,38 @@ class SignUp extends React.Component {
         addressLane2: this.state.addressLine2,
       };
       await callPostApi(constants.baseUrl, "signup", data).then((result) => {
-        console.log(result);
+        if (result == "FAILURE") {
+          this.setState({ spinner: !this.state.spinner });
+          constants.showAlert(
+            "Failure",
+            "There is some internal problem, please try again!"
+          );
+        } else {
+          if (result.success) {
+            this.setState({ spinner: !this.state.spinner });
+            constants.showAlert(
+              "Success",
+              "Account created you can login now!"
+            );
+          } else {
+            this.setState({ spinner: !this.state.spinner });
+            constants.showAlert("Failure", result.message);
+          }
+        }
       });
     } else {
+      this.setState({ spinner: !this.state.spinner });
       constants.showAlert("Fields Error", "Please check all the input fields");
     }
   }
 
+  Render_Footer = () => {
+    return <ActivityIndicator size="large" color="#b2ebf2" />;
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        {this.loading && (
-          <View style={styles.loading}>
-            <ActivityIndicator size="large" />
-          </View>
-        )}
         <ScrollView>
           {/* <View style = { styles.socialLoginContainer }>
 					<View style={ styles.socialLogin }>
@@ -290,6 +369,43 @@ class SignUp extends React.Component {
             ></TextInput>
             {this.state.mobileError.length > 0 && (
               <Text style={styles.validation}> {this.state.mobileError} </Text>
+            )}
+
+            <View style={styles.centerItems}>
+              <TouchableHighlight
+                activeOpacity={0.6}
+                underlayColor="#DDDDDD"
+                onPress={() => this.generateOtp()}
+              >
+                <View style={styles.otpButton}>
+                  <Text
+                    style={{
+                      color: "white",
+                      padding: 15,
+                      fontWeight: "600",
+                      fontSize: 15,
+                      textAlign: "center",
+                    }}
+                  >
+                    Generate OTP
+                  </Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+
+            <Text style={styles.inputText}>OTP</Text>
+            <TextInput
+              onChangeText={(value) => this.setOtpState({ otp: value.trim() })}
+              style={[
+                this.state.otpError.length > 0
+                  ? { borderColor: "red" }
+                  : { borderColor: "#e0e0e0" },
+                styles.input,
+              ]}
+              placeholder="Generate and enter correct OTP"
+            ></TextInput>
+            {this.state.otpError.length > 0 && (
+              <Text style={styles.validation}> {this.state.otpError} </Text>
             )}
 
             <Text style={styles.inputText}>Password</Text>
@@ -510,7 +626,10 @@ class SignUp extends React.Component {
             </View>
           </TouchableHighlight>
           <Text
-            onPress={() => this.goLogin()}
+            onPress={() => {
+              this.goLogin();
+              this.Render_Footer();
+            }}
             style={{
               marginTop: 10,
               fontWeight: "500",

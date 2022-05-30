@@ -15,81 +15,79 @@ import NavigationBar from "./src/components/user/NavigationBar";
 const Stack = createStackNavigator();
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 class App extends React.Component {
-    render() {
-        return (
-            <NavigationContainer>
-                <Stack.Navigator initialRouteName="SignUp">
-                    <Stack.Screen
-                        name="Home"
-                        options={{ headerShown: false }}
-                        component={Home}
-                    />
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
 
-                    <Stack.Screen
-                        name="SignUp"
-                        options={{ headerShown: true }}
-                        component={SignUp}
-                    />
+          <Stack.Screen
+            name="SignUp"
+            options={{ headerShown: true }}
+            component={SignUp}
+          />
 
-                    <Stack.Screen
-                        name="DetailScreen"
-                        component={ChefDetail}
-                        options={(navigation) => ({
-                            headerShown: false,
-                            headerBackTitleVisible: false,
-                            cardStyleInterpolator: ({
-                                current: { progress },
-                            }) => {
-                                return {
-                                    cardStyle: {
-                                        opacity: progress,
-                                    },
-                                };
-                            },
-                        })}
-                        sharedElementsConfig={(route) => {
-                            const { item } = route.params;
-                            return [
-                                {
-                                    id: `item.${item.id}.image`,
-                                    animation: "move",
-                                    resize: "clip",
-                                    align: "center-top",
-                                },
-                                {
-                                    id: `item.${data.id}.text`,
-                                    animation: "fade",
-                                    resize: "clip",
-                                    align: "left-center",
-                                },
-                            ];
-                        }}
-                    />
+          <Stack.Screen
+            name="DetailScreen"
+            component={ChefDetail}
+            options={(navigation) => ({
+              headerShown: false,
+              headerBackTitleVisible: false,
+              cardStyleInterpolator: ({ current: { progress } }) => {
+                return {
+                  cardStyle: {
+                    opacity: progress,
+                  },
+                };
+              },
+            })}
+            sharedElementsConfig={(route) => {
+              const { item } = route.params;
+              return [
+                {
+                  id: `item.${item.id}.image`,
+                  animation: "move",
+                  resize: "clip",
+                  align: "center-top",
+                },
+                {
+                  id: `item.${data.id}.text`,
+                  animation: "fade",
+                  resize: "clip",
+                  align: "left-center",
+                },
+              ];
+            }}
+          />
 
-                    <Stack.Screen
-                        name="Navbar"
-                        options={{ headerShown: false }}
-                        component={NavigationBar}
-                    />
+          <Stack.Screen
+            name="Navbar"
+            options={{ headerShown: false }}
+            component={NavigationBar}
+          />
 
-                    <Stack.Screen
-                        name="Login"
-                        options={{ headerShown: false }}
-                        component={Login}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        );
-    }
+          <Stack.Screen
+            name="Login"
+            options={{ headerShown: false }}
+            component={Login}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
 export default App;

@@ -81,6 +81,14 @@ const styles = StyleSheet.create({
     width: 300,
     marginBottom: 10,
   },
+  otpButton: {
+    fontWeight: "800",
+    backgroundColor: "#363636",
+    borderRadius: 10,
+    width: 175,
+    alignItems: "center",
+    marginTop: 10,
+  },
   detailsContainer: {
     marginBottom: 20,
   },
