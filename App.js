@@ -12,6 +12,8 @@ import Home from "./src/screens/user/Home";
 import ChefDetail from "./src/screens/user/ChefDetail";
 import NavigationBar from "./src/components/user/NavigationBar";
 
+import ChefHome from "./src/screens/chef/ChefHome";
+
 const Stack = createStackNavigator();
 
 const styles = StyleSheet.create({
@@ -27,11 +29,17 @@ class App extends React.Component {
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="SignUp">
+                <Stack.Navigator initialRouteName="ChefHome">
                     <Stack.Screen
                         name="Home"
                         options={{ headerShown: false }}
                         component={Home}
+                    />
+
+                    <Stack.Screen
+                        name="ChefHome"
+                        options={{ headerShown: false }}
+                        component={ChefHome}
                     />
 
                     <Stack.Screen
