@@ -283,7 +283,7 @@ class Home extends React.Component {
                     activeOpacity={0.8}
                     style={{ width: "100%" }}
                     onPress={() =>
-                      this.props.navigation.navigate("DetailScreen", { item })
+                      this.props.navigation.navigate("ChefDetail", { item })
                     }
                   >
                     <SharedElement id={`item.${item.mobile}.image`}>

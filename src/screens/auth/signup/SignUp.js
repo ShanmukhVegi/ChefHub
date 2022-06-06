@@ -257,7 +257,7 @@ class SignUp extends React.Component {
     var data = {
       mobilenumber: this.state.mobile,
     };
-    await callPostApi(constants.baseUrl, "generateOtp", data).then((result) => {
+    await callGetApi(constants.baseUrl, "generateOtp", data).then((result) => {
       if (result == "FAILURE") {
         this.setState({ spinner: !this.state.spinner });
         constants.showAlert(
@@ -267,6 +267,7 @@ class SignUp extends React.Component {
       } else {
         if (result.success) {
           this.setState({ spinner: !this.state.spinner });
+          console.log(result.OTP);
           constants.showAlert("Success", "OTP generated!");
           this.state.otpRecieved = result.OTP;
         } else {
@@ -284,6 +285,7 @@ class SignUp extends React.Component {
         constants.showAlert("Otp Error", "Please enter the correct OTP");
         return;
       }
+
       this.setState({ spinner: !this.state.spinner });
       var data = {
         name: this.state.name,

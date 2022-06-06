@@ -11,6 +11,7 @@ import SignUp from "./src/screens/auth/signup/SignUp";
 import Home from "./src/screens/user/Home";
 import ChefDetail from "./src/screens/user/ChefDetail";
 import NavigationBar from "./src/components/user/NavigationBar";
+import BookChef from "./src/screens/user/BookChef";
 
 import ChefHome from "./src/screens/chef/ChefHome";
 
@@ -29,7 +30,13 @@ class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="ChefHome">
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="BookChef"
+            options={{ headerShown: true }}
+            component={BookChef}
+          />
+
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
@@ -49,7 +56,7 @@ class App extends React.Component {
           />
 
           <Stack.Screen
-            name="DetailScreen"
+            name="ChefDetail"
             component={ChefDetail}
             options={(navigation) => ({
               headerShown: false,
