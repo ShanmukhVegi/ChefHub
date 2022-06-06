@@ -7,21 +7,24 @@ import { Ionicons } from "@expo/vector-icons";
 
 class NavigationBar extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
-            currentSection: "home",
+            currentSection: "chefhome",
             userType: "chef",
         };
     }
 
     setSection(section) {
+        if (section == "chefInfo") {
+            // this.props.navigation.navigate("home");
+        }
         this.setState({
             currentSection: section,
         });
     }
 
     render() {
-        if (this.state.userType == "nonchef") {
+        if (this.state.userType == "user") {
             return (
                 <View style={styles.navContainer}>
                     <AntDesign
@@ -75,9 +78,9 @@ class NavigationBar extends React.Component {
         return (
             <View style={styles.navContainer}>
                 <AntDesign
-                    onPress={() => this.setSection("home")}
+                    onPress={() => this.setSection("chefhome")}
                     style={
-                        this.state.currentSection == "home"
+                        this.state.currentSection == "chefhome"
                             ? styles.highLightIcon
                             : styles.icon
                     }
@@ -85,9 +88,9 @@ class NavigationBar extends React.Component {
                     size={24}
                 />
                 <Feather
-                    onPress={() => this.setSection("orders")}
+                    onPress={() => this.setSection("chefInfo")}
                     style={
-                        this.state.currentSection == "orders"
+                        this.state.currentSection == "chefInfo"
                             ? styles.highLightIcon
                             : styles.icon
                     }
@@ -107,9 +110,9 @@ class NavigationBar extends React.Component {
                     color="black"
                 /> */}
                 <AntDesign
-                    onPress={() => this.setSection("profile")}
+                    onPress={() => this.setSection("chefprofile")}
                     style={
-                        this.state.currentSection == "profile"
+                        this.state.currentSection == "chefprofile"
                             ? styles.highLightIcon
                             : styles.icon
                     }

@@ -14,6 +14,7 @@ import NavigationBar from "./src/components/user/NavigationBar";
 import BookChef from "./src/screens/user/BookChef";
 
 import ChefHome from "./src/screens/chef/ChefHome";
+import ChefInfo from "./src/screens/chef/ChefInfo";
 
 const Stack = createStackNavigator();
 
@@ -30,13 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="BookChef"
-            options={{ headerShown: true }}
-            component={BookChef}
-          />
-
+        <Stack.Navigator initialRouteName="ChefInfo">
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
@@ -50,13 +45,19 @@ class App extends React.Component {
           />
 
           <Stack.Screen
+            name="ChefInfo"
+            options={{ headerShown: false }}
+            component={ChefInfo}
+          />
+
+          <Stack.Screen
             name="SignUp"
             options={{ headerShown: true }}
             component={SignUp}
           />
 
           <Stack.Screen
-            name="ChefDetail"
+            name="DetailScreen"
             component={ChefDetail}
             options={(navigation) => ({
               headerShown: false,
@@ -98,6 +99,12 @@ class App extends React.Component {
             name="Login"
             options={{ headerShown: false }}
             component={Login}
+          />
+
+          <Stack.Screen
+            name="BookChef"
+            options={{ headerShown: true }}
+            component={BookChef}
           />
         </Stack.Navigator>
       </NavigationContainer>
