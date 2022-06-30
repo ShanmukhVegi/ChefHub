@@ -36,7 +36,6 @@ class App extends React.Component {
                         options={{ headerShown: false }}
                         component={Home}
                     />
-
                     <Stack.Screen
                         name="ChefHome"
                         options={{ headerShown: false }}
