@@ -21,7 +21,11 @@ import constants from "../../constants/constants";
 
 class ChefHome extends React.Component {
   constructor(props) {
+    //props.navigation.setParams({ pageName: "ChefHome" });
+
     super(props);
+
+    console.log("-09876567890-*&^%", props);
 
     this.state = {
       search: "",
@@ -276,7 +280,10 @@ class ChefHome extends React.Component {
             />
           </View>
         </View>
-        <NavigationBar style={{ flex: 1 }}></NavigationBar>
+        <NavigationBar
+          style={{ flex: 1 }}
+          navigation={this.props}
+        ></NavigationBar>
       </SafeAreaView>
     );
   }

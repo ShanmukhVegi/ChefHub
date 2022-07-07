@@ -93,7 +93,13 @@ class Login extends React.Component {
               console.log("ERROR");
             }
           };
-          storeToken().then(this.props.navigation.navigate("Home"));
+          storeToken().then(() => {
+            if (result.type == "Chef") {
+              this.props.navigation.navigate("ChefHome");
+            } else {
+              this.props.navigation.navigate("Home");
+            }
+          });
         } else {
           constants.showAlert("Failure", result.message);
         }
