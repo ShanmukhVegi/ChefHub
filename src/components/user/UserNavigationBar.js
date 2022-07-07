@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
-class NavigationBar extends React.Component {
+class UserNavigationBar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,23 +30,20 @@ class NavigationBar extends React.Component {
     return (
       <View style={styles.navContainer}>
         <AntDesign
-          onPress={() => {
-            this.props.navigation.navigation.navigate("ChefHome");
-          }}
+          onPress={() => this.props.navigation.navigation.navigate("Home")}
           style={
-            this.state.currentSection == "ChefHome"
+            this.state.currentSection == "home"
               ? styles.highLightIcon
               : styles.icon
           }
           name="home"
           size={24}
         />
+        {/*
         <Feather
-          onPress={() => {
-            this.props.navigation.navigation.navigate("ChefInfo");
-          }}
+          onPress={() => this.setSection("orders")}
           style={
-            this.state.currentSection == "ChefInfo"
+            this.state.currentSection == "orders"
               ? styles.highLightIcon
               : styles.icon
           }
@@ -54,10 +51,22 @@ class NavigationBar extends React.Component {
           size={24}
           color="black"
         />
-        <AntDesign
-          onPress={() => this.setSection("chefprofile")}
+        <Ionicons
+          onPress={() => this.setSection("chat")}
           style={
-            this.state.currentSection == "chefprofile"
+            this.state.currentSection == "chat"
+              ? styles.highLightIcon
+              : styles.icon
+          }
+          name="chatbubbles-outline"
+          size={24}
+          color="black"
+        />
+        */}
+        <AntDesign
+          onPress={() => this.setSection("profile")}
+          style={
+            this.state.currentSection == "profile"
               ? styles.highLightIcon
               : styles.icon
           }
@@ -94,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = NavigationBar;
+module.exports = UserNavigationBar;

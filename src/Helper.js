@@ -5,7 +5,7 @@ const FAILURE = "FAILURE";
 export async function callGetApi(baseUrl, api, data) {
   console.log(baseUrl + api);
   try {
-    const result = await axios.get(baseUrl + api, data);
+    const result = await axios.get(baseUrl + api, { params: data });
     return result.data;
   } catch (err) {
     console.error(err.response.data);

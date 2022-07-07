@@ -14,6 +14,7 @@ import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 
+import UserNavigationBar from "../../components/user/UserNavigationBar";
 import NavigationBar from "../../components/user/NavigationBar";
 import TouchableScale from "react-native-touchable-scale";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -283,7 +284,7 @@ class Home extends React.Component {
                     activeOpacity={0.8}
                     style={{ width: "100%" }}
                     onPress={() =>
-                      this.props.navigation.navigate("DetailScreen", { item })
+                      this.props.navigation.navigate("ChefDetail", { item })
                     }
                   >
                     <SharedElement id={`item.${item.mobile}.image`}>
@@ -359,7 +360,10 @@ class Home extends React.Component {
             ListFooterComponent={this.Render_Footer}
           />
         </View>
-        <NavigationBar sytle={{ flex: 1 }}></NavigationBar>
+        <UserNavigationBar
+          sytle={{ flex: 1 }}
+          navigation={this.props}
+        ></UserNavigationBar>
       </SafeAreaView>
     );
   }
