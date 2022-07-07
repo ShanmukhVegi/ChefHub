@@ -18,6 +18,7 @@
     "axios": "^0.26.1",
     "expo": "~44.0.0",
     "expo-dev-client": "~0.8.5",
+    "expo-image-picker": "^13.1.1",
     "expo-react-native-shadow": "^1.0.3",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",

@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Button,
+  Alert,
 } from "react-native";
 
 import { Entypo } from "@expo/vector-icons";
@@ -17,6 +18,7 @@ import NavigationBar from "../../components/user/NavigationBar";
 import TouchableScale from "react-native-touchable-scale";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SharedElement } from "react-navigation-shared-element";
+import CustomModal from "../UI/customModal.js";
 
 class ChefInfo extends React.Component {
   constructor(props) {
@@ -28,6 +30,9 @@ class ChefInfo extends React.Component {
     this.state = {
       chefInfo: {
         about: "Hi, I'm a chef",
+      },
+      modalVisible: {
+        visible: false,
       },
       fieldsEditable: {
         about: false,
@@ -130,7 +135,22 @@ class ChefInfo extends React.Component {
   Render_Footer = () => {
     return <ActivityIndicator size="large" color="#b2ebf2" />;
   };
-
+  closeHandlerFunction = () => {
+    Alert.alert("Are you sure?", "unsaved changes will be lost", [
+      { text: "NO", style: "default" },
+      {
+        text: "ok",
+        style: "default",
+        onPress: () => {
+          this.setState({
+            modalVisible: {
+              visible: false,
+            },
+          });
+        },
+      },
+    ]);
+  };
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -230,10 +250,24 @@ class ChefInfo extends React.Component {
                       />
                     </TouchableOpacity>
                   </View>
+                  <CustomModal
+                    isModalVisible={this.state.modalVisible.visible}
+                    closeHandler={this.closeHandlerFunction}
+                  />
                 </>
               )}
             />
-            <Button style={{ marginTop: 20 }} title="Add a new special">
+            <Button
+              style={{ marginTop: 20 }}
+              title="Add a new special"
+              onPress={() => {
+                this.setState({
+                  modalVisible: {
+                    visible: true,
+                  },
+                });
+              }}
+            >
               {" "}
             </Button>
           </View>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, SafeAreaView, View, StyleSheet } from "react-native";
+import { Text, SafeAreaView, View, StyleSheet, Alert } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -64,7 +64,23 @@ class UserNavigationBar extends React.Component {
         />
         */}
         <AntDesign
-          onPress={() => this.setSection("profile")}
+          onPress={() => {
+            Alert.alert("Are your sure?", "Are you sure you want to Logout", [
+              // The "Yes" button
+              {
+                text: "Yes",
+                onPress: async () => {
+                  this.removeItemValue("JsonToken");
+                  this.props.navigation.navigation.navigate("Login");
+                },
+              },
+              // The "No" button
+              // Does nothing but dismiss the dialog when tapped
+              {
+                text: "No",
+              },
+            ]);
+          }}
           style={
             this.state.currentSection == "profile"
               ? styles.highLightIcon
@@ -76,6 +92,14 @@ class UserNavigationBar extends React.Component {
         />
       </View>
     );
+  }
+  async removeItemValue(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+      return true;
+    } catch (exception) {
+      return false;
+    }
   }
 }
 
