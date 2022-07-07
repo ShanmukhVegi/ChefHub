@@ -32,7 +32,7 @@ class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="ChefHome">
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
